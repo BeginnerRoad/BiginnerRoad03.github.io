@@ -1,80 +1,52 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>診断ページ</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+'use strict';
 
-<body>
-  <div class="container">
-    <h1>創作タイプ診断</h1>
+const button = document.getElementById('assessment');
 
-    <p>まず名前を入力してください</p>
-    <input type="text" id="user-name" placeholder="あなたの名前">
+button.onclick = () => {
+  const name = document.getElementById('user-name').value;
 
-    <h2>質問に答えてください</h2>
+  if (name.length === 0) {
+    alert("名前を入力してください");
+    return;
+  }
 
-    <div class="question">
-      <p>Q1. 新しいアイデアを考えるのが好き？</p>
-      <select id="q1">
-        <option value="1">まったく違う</option>
-        <option value="2">あまり</option>
-        <option value="3">普通</option>
-        <option value="4">わりと</option>
-        <option value="5">とても</option>
-      </select>
-    </div>
+  const total =
+    Number(document.getElementById('q1').value) +
+    Number(document.getElementById('q2').value) +
+    Number(document.getElementById('q3').value) +
+    Number(document.getElementById('q4').value) +
+    Number(document.getElementById('q5').value);
 
-    <div class="question">
-      <p>Q2. コツコツ続けるのが得意？</p>
-      <select id="q2">
-        <option value="1">苦手</option>
-        <option value="2">やや苦手</option>
-        <option value="3">普通</option>
-        <option value="4">得意</option>
-        <option value="5">とても得意</option>
-      </select>
-    </div>
+  let type = "";
+  let message = "";
 
-    <div class="question">
-      <p>Q3. 感情表現を大切にする？</p>
-      <select id="q3">
-        <option value="1">しない</option>
-        <option value="2">あまり</option>
-        <option value="3">どちらとも</option>
-        <option value="4">する</option>
-        <option value="5">とても</option>
-      </select>
-    </div>
+  if (total >= 21) {
+    type = "チャレンジ型クリエイター";
+    message = "新しいことにどんどん挑戦する行動派タイプです！";
+  } else if (total >= 16) {
+    type = "バランス型クリエイター";
+    message = "アイデアと努力のバランスが良い安定タイプです。";
+  } else if (total >= 11) {
+    type = "コツコツ努力型";
+    message = "地道な継続で成果を出す職人タイプです。";
+  } else {
+    type = "じっくり慎重型";
+    message = "慎重に考えてから動く思慮深いタイプです。";
+  }
 
-    <div class="question">
-      <p>Q4. 計画を立てて行動する？</p>
-      <select id="q4">
-        <option value="1">苦手</option>
-        <option value="2">あまり</option>
-        <option value="3">普通</option>
-        <option value="4">得意</option>
-        <option value="5">とても</option>
-      </select>
-    </div>
+  const resultArea = document.getElementById('result-area');
+  resultArea.innerHTML = "";
 
-    <div class="question">
-      <p>Q5. 新しい挑戦が好き？</p>
-      <select id="q5">
-        <option value="1">嫌い</option>
-        <option value="2">あまり</option>
-        <option value="3">普通</option>
-        <option value="4">好き</option>
-        <option value="5">大好き</option>
-      </select>
-    </div>
+  const h = document.createElement("h2");
+  h.textContent = name + "さんの診断結果";
 
-    <button id="assessment">診断する</button>
+  const p = document.createElement("p");
+  p.textContent = "あなたは「" + type + "」です。";
 
-    <div id="result-area"></div>
-  </div>
+  const p2 = document.createElement("p");
+  p2.textContent = message;
 
-  <script src="assessment.js"></script>
-</body>
-</html>
+  resultArea.appendChild(h);
+  resultArea.appendChild(p);
+  resultArea.appendChild(p2);
+};

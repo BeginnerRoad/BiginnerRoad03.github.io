@@ -1,46 +1,27 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>創作タイプ診断</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-const userNameInput = document.getElementById('user-name');
-const assessmentButton = document.getElementById('assessment');
-const resultDivided = document.getElementById('result-area');
+<body>
+  <div class="container">
+    <h1>あなたの創作タイプ診断</h1>
 
-assessmentButton.onclick = () => {
-  const userName = userNameInput.value;
+    <p>名前を入力してください</p>
 
-  if (userName.length === 0) {
-    return;
-  }
+    <input type="text" id="user-name" size="40" maxlength="20">
+    <button id="assessment">診断する</button>
 
-  resultDivided.innerText = '';
+    <div id="result-area"></div>
 
-  const header = document.createElement('h3');
-  header.innerText = '診断結果';
-  resultDivided.appendChild(header);
+    <footer>
+      JavaScript Assessment App
+    </footer>
+  </div>
 
-  const paragraph = document.createElement('p');
-  const result = assessment(userName);
-  paragraph.innerText = result;
-  resultDivided.appendChild(paragraph);
-};
-
-const answers = [
-  '{userName}さんは「アイデア発想型」です。新しい発想を生み出すのが得意です。',
-  '{userName}さんは「努力継続型」です。コツコツ積み上げる力があります。',
-  '{userName}さんは「感性重視型」です。感情表現がとても豊かです。',
-  '{userName}さんは「分析型」です。物事を論理的に考えるのが得意です。',
-  '{userName}さんは「チャレンジ型」です。新しいことに挑戦するのが好きです。'
-];
-
-function assessment(userName) {
-  let sumOfCharCode = 0;
-
-  for (let i = 0; i < userName.length; i++) {
-    sumOfCharCode += userName.charCodeAt(i);
-  }
-
-  const index = sumOfCharCode % answers.length;
-  let result = answers[index];
-
-  result = result.replace('{userName}', userName);
-  return result;
-}
+  <script src="assessment.js"></script>
+</body>
+</html>
